@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../node_modules/when/when.js"></script>
+</head>
+<body>
+    <div id="output"></div>
+  <script>
+      function run() {
+          var deferred = when.defer();
+          var start = 1, end = 100;
+
+          (function() {
+              if(start <= end) {
+                  deferred.notify(start++);
+                  setTimeout(arguments.callee, 50);
+              } else {
+                  deferred.reject('time out!');
+              }
+          })();
+
+          return deferred.promise;
+      }
+
+      run().then(function(data){
+                 console.log('111'+data);
+              },
+              function(reason) {
+                  alert(reason);
+              }, function(s) {
+                  document.getElementById('output').innerHTML = s + '%';
+              }
+      );
+  </script>
+
+</body>
+</html>

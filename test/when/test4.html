@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>all</title>
+    <style>img {height:300px;float:left;}</style>
+</head>
+<body>
+<div id="container"></div>
+<script src="https://cdn.staticfile.org/jquery/1.12.4/jquery.js"></script>
+<script src="../../node_modules/when/when.js"></script>
+<script>
+
+        var api = 'data/test4.json';
+
+        var getData = function() {
+            var deferred = when.defer();
+
+            $.getJSON(api, function(data){
+                var data = data.path.slice(0, 3);
+                deferred.resolve(data);
+            });
+
+            return deferred.promise;
+        }
+
+        var getImg = function(src) {
+            var deferred = when.defer();
+
+            var img = new Image();
+
+            img.onload = function() {
+                deferred.resolve(img);
+            };
+
+            img.src = src;
+
+            return deferred.promise;
+        }
+
+        var showImgs = function(imgs) {
+            $(imgs).appendTo($('#container'));
+        }
+
+        var getImgs = function(data) {
+            var deferreds = [];
+            for(var i = 0; i < data.length; i++) {
+                deferreds.push(getImg(data[i]));
+            }
+            return deferreds;
+        }
+
+        when.all(getData().then(getImgs)).then(showImgs);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Jerry Qu 's Document</title>
+    <style>img {height:300px;float:left;}</style>
+</head>
+<body>
+<script src="../../node_modules/when/when.js"></script>
+<div id="output"></div>
+<script>
+    function run() {
+        var deferred = when.defer();
+
+        var start = 1, end = 100;
+
+        (function() {
+            if(start <= end) {
+                deferred.notify(start);
+                start++;
+                setTimeout(arguments.callee, 50);
+            } else {
+                deferred.reject('time out!');
+            }
+        })();
+
+        return deferred.promise;
+    }
+
+    run().then(undefined,
+            function(reason) {
+                alert(reason);
+            }, function(s) {
+                document.getElementById('output').innerHTML = s + '%';
+            }
+    );
+</script>
+</body>
+</html>

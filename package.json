@@ -1,0 +1,25 @@
+{
+  "name": "c-promise",
+  "version": "1.0.0",
+  "description": "javascript 异步编程promise解决方案base",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youzaiyouzai666/c-promise.git"
+  },
+  "keywords": [
+    "promise"
+  ],
+  "author": "caoyi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youzaiyouzai666/c-promise/issues"
+  },
+  "homepage": "https://github.com/youzaiyouzai666/c-promise#readme",
+  "dependencies": {
+    "when": "^1.8.1"
+  }
+}

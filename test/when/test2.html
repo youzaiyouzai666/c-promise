@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../node_modules/when/when.js"></script>
+</head>
+<body>
+
+    <script>
+        function loadImage (src) {
+            var deferred = when.defer(),
+                    img = document.createElement('img');
+            img.onload = function () {
+                deferred.resolve(img);
+            };
+            img.onerror = function () {
+                deferred.reject(new Error('Image not found: ' + src));
+            };
+            img.src = src;
+
+            // Return only the promise, so that the caller cannot
+            // resolve, reject, or otherwise muck with the original deferred.
+            return deferred.promise;
+        }
+
+        // example usage:
+        loadImage('http://google.com/favicon.ico').then(
+                function gotIt(img) {
+                    document.body.appendChild(img);
+                    return img;
+                },
+                function doh(err) {
+                    document.body.appendChild(document.createTextNode(err));
+                }
+        ).then(
+                function shout(img) {
+                    alert('see my new ' + img.src + '?');
+                }
+        );
+    </script>
+</body>
+</html>
